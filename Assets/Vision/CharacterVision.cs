@@ -13,8 +13,6 @@ internal enum VisionMode
     EM
 }
 public class CharacterVision : MonoBehaviour {
-    // public string materialEmissionProperty = "_EmissionColor";
-
     [Range(0.0f, 2.0f)] public float ThermalEmission = 1.0f;
     [Range(0.0f, 2.0f)] public float NightEmission = 1.0f;
     [Range(0.0f, 2.0f)] public float EMEmission = 1.0f;
