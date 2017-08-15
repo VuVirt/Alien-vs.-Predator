@@ -129,7 +129,7 @@ Material:
     - _AnimatedUVRange: {r: 0, g: 0, b: 0.5, a: 1}
     - _AnimatedUVScaleOffset: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 0.047685977, g: 0.051470578, b: 0.050687555, a: 1}
-    - _EmissionColor: {r: 0.45712584, g: 0.5886493, b: 0.6985294, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MetaDiffuseAdd: {r: 0, g: 0, b: 0, a: 1}
     - _MetaDiffuseTint: {r: 1, g: 1, b: 1, a: 1}
     - _MetaEmissionAdd: {r: 0, g: 0, b: 0, a: 1}

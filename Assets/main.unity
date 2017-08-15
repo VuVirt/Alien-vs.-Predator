@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 2598432}
   - component: {fileID: 2598431}
   - component: {fileID: 2598430}
+  - component: {fileID: 2598433}
   - component: {fileID: 2598429}
   m_Layer: 0
   m_Name: NVCamChar
@@ -213,6 +214,17 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!114 &2598433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2598427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fa0db1453a6c14db8c0e3ad9b8fa3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2907566
 Prefab:
   m_ObjectHideFlags: 0
@@ -3405,6 +3417,7 @@ GameObject:
   - component: {fileID: 404824582}
   - component: {fileID: 404824581}
   - component: {fileID: 404824580}
+  - component: {fileID: 404824583}
   - component: {fileID: 404824579}
   m_Layer: 0
   m_Name: EMCamChar
@@ -3497,6 +3510,17 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!114 &404824583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 404824577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fe001f2132f6614188809a964ab5d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &421426266
 Transform:
   m_ObjectHideFlags: 0
@@ -4968,6 +4992,7 @@ GameObject:
   - component: {fileID: 683659607}
   - component: {fileID: 683659606}
   - component: {fileID: 683659605}
+  - component: {fileID: 683659608}
   - component: {fileID: 683659604}
   m_Layer: 0
   m_Name: EMCam
@@ -5061,6 +5086,17 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!114 &683659608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 683659602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fe001f2132f6614188809a964ab5d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &693269274
 GameObject:
   m_ObjectHideFlags: 0
@@ -5507,6 +5543,7 @@ GameObject:
   - component: {fileID: 807601256}
   - component: {fileID: 807601255}
   - component: {fileID: 807601253}
+  - component: {fileID: 807601259}
   - component: {fileID: 807601254}
   m_Layer: 0
   m_Name: MainCamera
@@ -5605,6 +5642,17 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!114 &807601259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 807601252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e150fdea336a4e5408c10961338c8ce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &808069412
 GameObject:
   m_ObjectHideFlags: 0
@@ -13279,6 +13327,7 @@ GameObject:
   - component: {fileID: 1707517406}
   - component: {fileID: 1707517405}
   - component: {fileID: 1707517404}
+  - component: {fileID: 1707517407}
   - component: {fileID: 1707517403}
   m_Layer: 0
   m_Name: ThermalCamChar
@@ -13365,12 +13414,23 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!114 &1707517407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1707517401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956126d24bda7484db05ce55209c55bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1710715346
 GameObject:
   m_ObjectHideFlags: 0
@@ -16185,6 +16245,7 @@ GameObject:
   - component: {fileID: 1965908175}
   - component: {fileID: 1965908174}
   - component: {fileID: 1965908173}
+  - component: {fileID: 1965908176}
   - component: {fileID: 1965908172}
   m_Layer: 0
   m_Name: ThermalCam
@@ -16278,6 +16339,17 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!114 &1965908176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1965908170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956126d24bda7484db05ce55209c55bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1988023113
 Prefab:
   m_ObjectHideFlags: 0
@@ -16573,6 +16645,7 @@ GameObject:
   - component: {fileID: 1994897280}
   - component: {fileID: 1994897279}
   - component: {fileID: 1994897278}
+  - component: {fileID: 1994897281}
   - component: {fileID: 1994897277}
   m_Layer: 0
   m_Name: Camera
@@ -16665,6 +16738,17 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!114 &1994897281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1994897275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e150fdea336a4e5408c10961338c8ce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1998874588
 Prefab:
   m_ObjectHideFlags: 0
@@ -18612,6 +18696,7 @@ GameObject:
   - component: {fileID: 2139973770}
   - component: {fileID: 2139973768}
   - component: {fileID: 2139973769}
+  - component: {fileID: 2139973773}
   - component: {fileID: 2139973772}
   m_Layer: 0
   m_Name: NVCam
@@ -18712,3 +18797,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 0}
+--- !u!114 &2139973773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2139973766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fa0db1453a6c14db8c0e3ad9b8fa3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
