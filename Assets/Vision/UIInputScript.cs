@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//using System.Collections;
+//using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class UIInputScript : MonoBehaviour {
-
+public class UIInputScript : MonoBehaviour
+{
     ProcessCharacters[] processCharacters;
     NightVision nightVision;
     ThermalVisionBackground thermalVisionBg;
@@ -12,7 +13,7 @@ public class UIInputScript : MonoBehaviour {
     ThermalVision thermalVision;
     EMVision emVision;
 
-    bool thumbnails = false;
+    //bool thumbnails = false;
     Camera camTH;
     Camera camTHC;
     Camera camNV;
@@ -23,6 +24,11 @@ public class UIInputScript : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        //if (SystemInfo.deviceType == DeviceType.Desktop)
+        //{
+        //    GameObject.Find("Canvas").GetComponent<Canvas>().enabled = false;
+        //}
+
         processCharacters = Camera.main.gameObject.GetComponentsInChildren<ProcessCharacters>();
 
         nightVision = Camera.main.gameObject.GetComponentInChildren<NightVision>();
@@ -50,7 +56,7 @@ public class UIInputScript : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        bool temp = thumbnails;
+        //bool temp = thumbnails;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -99,17 +105,24 @@ public class UIInputScript : MonoBehaviour {
         else if (Input.GetKeyUp(KeyCode.Alpha0))
         {
             //nightVision.enabled = false;
-            thumbnails = !thumbnails;
+            //thumbnails = !thumbnails;
+
+            camTH.enabled = !camTH.enabled;
+            camTHC.enabled = !camTHC.enabled;
+            camNV.enabled = !camNV.enabled;
+            camNVC.enabled = !camNVC.enabled;
+            camEM.enabled = !camEM.enabled;
+            camEMC.enabled = !camEMC.enabled;
         }
 
-        if (temp != thumbnails)
-        {
-            camTH.enabled = thumbnails;
-            camTHC.enabled = thumbnails;
-            camNV.enabled = thumbnails;
-            camNVC.enabled = thumbnails;
-            camEM.enabled = thumbnails;
-            camEMC.enabled = thumbnails;
-        }
+        //if (temp != thumbnails)
+        //{
+        //    camTH.enabled = thumbnails;
+        //    camTHC.enabled = thumbnails;
+        //    camNV.enabled = thumbnails;
+        //    camNVC.enabled = thumbnails;
+        //    camEM.enabled = thumbnails;
+        //    camEMC.enabled = thumbnails;
+        //}
     }
 }
