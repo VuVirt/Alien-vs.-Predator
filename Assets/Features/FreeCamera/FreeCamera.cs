@@ -11,7 +11,8 @@ public class FreeCamera : MonoBehaviour
 	public float moveSpeed = 5f;
 	public float sprintSpeed = 50f;
 
-	bool	m_inputCaptured;
+    bool touchHandled = false;
+    bool m_inputCaptured = false;
 	float	m_yaw;
 	float	m_pitch;
 
@@ -41,7 +42,7 @@ public class FreeCamera : MonoBehaviour
     private float yAngle = 0.0f;
     private float xAngTemp = 0.0f; //temp variable for angle
     private float yAngTemp = 0.0f;
-    private bool inTouch = false;
+    private int _touchID = -1;
 
     void Start()
     {
@@ -124,14 +125,13 @@ public class FreeCamera : MonoBehaviour
 
 	void Update()
     {
-        bool touchHandled = false;
         for (int i = 0; i < Input.touchCount; ++i)
         {
             if (!cvnButtons.enabled)
                 cvnButtons.enabled = true;
 
             Touch touch = Input.GetTouch(i);
-            if(touch.phase == TouchPhase.Stationary) // || touch.phase == TouchPhase.Began)
+            if((_touchID < 0 || touch.fingerId != _touchID) && (touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Began))
             {
                 if (camTH.pixelRect.Contains(touch.position))
                 {
@@ -239,21 +239,36 @@ public class FreeCamera : MonoBehaviour
                     camTH.transform.position = transform.position;
                     camNV.transform.position = transform.position;
                     camEM.transform.position = transform.position;
+
+                    continue;
                 }
-            }
-            else 
-            {
-                if (touch.phase == TouchPhase.Began)
+
+                if (_touchID < 0 && touch.phase == TouchPhase.Began)
                 {
                     if (touch.position.x > Screen.width / 2)
                     {
                         firstpoint = touch.position;
                         xAngTemp = xAngle;
                         yAngTemp = yAngle;
-                        inTouch = true;
+                        _touchID = touch.fingerId;
                     }
                 }
-                else if (touch.phase == TouchPhase.Moved && inTouch)
+            }
+            else if (_touchID >= 0)
+            {
+                //if (_touchID < 0 && touch.phase == TouchPhase.Began)
+                //{
+                //    if (touch.position.x > Screen.width / 2)
+                //    {
+                //        firstpoint = touch.position;
+                //        xAngTemp = xAngle;
+                //        yAngTemp = yAngle;
+                //        _touchID = touch.fingerId;
+                //    }
+                //}
+                //else 
+
+                if (touch.fingerId == _touchID && touch.phase == TouchPhase.Moved)
                 {
                     secondpoint = touch.position;
                     //Mainly, about rotate camera. For example, for Screen.width rotate on 180 degree
@@ -281,14 +296,15 @@ public class FreeCamera : MonoBehaviour
                     camNV.transform.rotation = transform.rotation;
                     camEM.transform.rotation = transform.rotation;
                 }
-                else if ((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) && inTouch)
+                else if (touch.fingerId == _touchID && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled))
                 {
-                    inTouch = false;
-                    transform.rotation = Quaternion.Euler(yAngle, xAngle, 0.0f);
+                    _touchID = -1;
 
-                    camTH.transform.rotation = transform.rotation;
-                    camNV.transform.rotation = transform.rotation;
-                    camEM.transform.rotation = transform.rotation;
+                    //transform.rotation = Quaternion.Euler(yAngle, xAngle, 0.0f);
+
+                    //camTH.transform.rotation = transform.rotation;
+                    //camNV.transform.rotation = transform.rotation;
+                    //camEM.transform.rotation = transform.rotation;
                 }
             }
 
