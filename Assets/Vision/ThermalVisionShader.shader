@@ -20,18 +20,18 @@
 
 			struct appdata
 			{
-				float4 vertex : POSITION;
-				float2 uv : TEXCOORD0;
-				float4 color : COLOR;
-				float3 normal : NORMAL; 
+				half4 vertex : POSITION;
+				half2 uv : TEXCOORD0;
+				half4 color : COLOR;
+				half3 normal : NORMAL; 
 			};
 
 			struct v2f
 			{
-				float2 uv : TEXCOORD0;
-				float4 vertex : SV_POSITION;
-				float3 normal : TEXCOORD1;
-				float3 viewDir : TEXCOORD2;
+				half2 uv : TEXCOORD0;
+				half4 vertex : SV_POSITION;
+				half3 normal : TEXCOORD1;
+				half3 viewDir : TEXCOORD2;
 			};
 
 			v2f vert (appdata v)
@@ -45,37 +45,37 @@
 			}
 			
 			sampler2D _MainTex;
-			float4 _MainTex_TexelSize;
-			float _Coeff;
-			fixed4 _Low;
-			fixed4 _Medium;
-			fixed4 _High;
+			half4 _MainTex_TexelSize;
+			half _Coeff;
+			half4 _Low;
+			half4 _Medium;
+			half4 _High;
 
-			fixed4 frag (v2f i) : SV_Target
+			half4 frag (v2f i) : SV_Target
 			{
-				float3 viewDir = normalize(i.viewDir);
-				float3 normal = normalize(i.normal);
+				half3 viewDir = normalize(i.viewDir);
+				half3 normal = normalize(i.normal);
 
 				half d = min(1, max(0, dot(viewDir, normal)));
-				fixed4 col = d * tex2D(_MainTex, i.uv);
+				half4 col = d * tex2D(_MainTex, i.uv);
 				
-				fixed2 off = fixed2(0.5f, 0.5f);
+				half2 off = half2(0.5f, 0.5f);
 				col *= _Coeff; 
-				float c2 = _Coeff * 0.5f;
+				half c2 = _Coeff * 0.5f;
 				col += tex2D(_MainTex, i.uv + (off.x / _MainTex_TexelSize.z)) * c2;
 				col += tex2D(_MainTex, i.uv - (off.y / _MainTex_TexelSize.w)) * c2;
 
-				fixed4 pixcol = col; 
-				fixed4 colors[3];
+				half4 pixcol = col; 
+				half4 colors[3];
 				colors[0] = _Low;
 				colors[1] = _Medium;
 				colors[2] = _High;
 
-				float f = 3.0f * (_Coeff > 1.0f ? _Coeff : 1.0f);
+				half f = 3.0f * (_Coeff > 1.0f ? _Coeff : 1.0f);
 
-				float lum = min(1.0f, (pixcol.r + pixcol.g + pixcol.b) / f);
-				float ix = (lum < 0.5f) ? 0.0 : 1.0;
-				fixed4 thermal = lerp(colors[ix], colors[ix + 1], (lum - ix * 0.5f) / 0.5);
+				half lum = min(1.0f, (pixcol.r + pixcol.g + pixcol.b) / f);
+				half ix = (lum < 0.5f) ? 0.0 : 1.0;
+				half4 thermal = lerp(colors[ix], colors[ix + 1], (lum - ix * 0.5f) / 0.5);
 				return thermal; 
 			}
 			ENDCG
