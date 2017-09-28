@@ -4,17 +4,17 @@ using UnityEngine.UI;
 
 public class FreeCamera : MonoBehaviour
 {
-	//public bool enableInputCapture = true;
-	//public bool holdRightMouseCapture = false;
+    //public bool enableInputCapture = true;
+    //public bool holdRightMouseCapture = false;
 
-	public float lookSpeed = 5f;
-	public float moveSpeed = 5f;
-	public float sprintSpeed = 50f;
+    public float lookSpeed = 5f;
+    public float moveSpeed = 5f;
+    public float sprintSpeed = 50f;
 
     bool touchHandled = false;
     bool m_inputCaptured = false;
-	float	m_yaw;
-	float	m_pitch;
+    float m_yaw;
+    float m_pitch;
 
     int m_horz = 0;
     int m_vert = 0;
@@ -81,14 +81,14 @@ public class FreeCamera : MonoBehaviour
         camEMC.enabled = false;
     }
 
- //   void Awake() {
-	//	enabled = enableInputCapture;
-	//}
+    //   void Awake() {
+    //	enabled = enableInputCapture;
+    //}
 
-	//void OnValidate() {
-	//	if(Application.isPlaying)
-	//		enabled = enableInputCapture;
-	//}
+    //void OnValidate() {
+    //	if(Application.isPlaying)
+    //		enabled = enableInputCapture;
+    //}
 
     public void OnHorz(int delta)
     {
@@ -100,30 +100,30 @@ public class FreeCamera : MonoBehaviour
         m_vert = delta;
     }
 
- //   void CaptureInput() {
-	//	Cursor.lockState = CursorLockMode.Locked;
+    //   void CaptureInput() {
+    //	Cursor.lockState = CursorLockMode.Locked;
 
-	//	Cursor.visible = false;
-	//	m_inputCaptured = true;
+    //	Cursor.visible = false;
+    //	m_inputCaptured = true;
 
-	//	m_yaw = transform.eulerAngles.y;
-	//	m_pitch = transform.eulerAngles.x;
-	//}
+    //	m_yaw = transform.eulerAngles.y;
+    //	m_pitch = transform.eulerAngles.x;
+    //}
 
-	//void ReleaseInput() {
-	//	Cursor.lockState = CursorLockMode.None;
-	//	Cursor.visible = true;
-	//	m_inputCaptured = false;
-	//}
+    //void ReleaseInput() {
+    //	Cursor.lockState = CursorLockMode.None;
+    //	Cursor.visible = true;
+    //	m_inputCaptured = false;
+    //}
 
-	//void OnApplicationFocus(bool focus) {
-	//	if(m_inputCaptured && !focus)
-	//		ReleaseInput();
-	//}
+    //void OnApplicationFocus(bool focus) {
+    //	if(m_inputCaptured && !focus)
+    //		ReleaseInput();
+    //}
 
 
 
-	void Update()
+    void Update()
     {
         for (int i = 0; i < Input.touchCount; ++i)
         {
@@ -131,7 +131,9 @@ public class FreeCamera : MonoBehaviour
                 cvnButtons.enabled = true;
 
             Touch touch = Input.GetTouch(i);
-            if((_touchID < 0 || touch.fingerId != _touchID) && (touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Began))
+
+            // FIXME: Fix touch input when first touch is on buttons!! And remove buttons from touch area that disables cameras / resets vision !!!
+            if ((_touchID < 0 || touch.fingerId != _touchID) && (touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Began))
             {
                 if (camTH.pixelRect.Contains(touch.position))
                 {
@@ -178,7 +180,7 @@ public class FreeCamera : MonoBehaviour
                         camEM.enabled = true;
                         camEMC.enabled = true;
                     }
-                    continue; 
+                    continue;
                 }
 
                 if (camEM.pixelRect.Contains(touch.position))
@@ -205,7 +207,7 @@ public class FreeCamera : MonoBehaviour
                     continue;
                 }
 
-                if (touch.position.x < Screen.width / 2 && m_vert == 0 && m_horz == 0)
+                if (touch.position.x < Screen.width / 2 && touch.position.y > Screen.height / 2 && m_vert == 0 && m_horz == 0) // ??
                 {
                     if (camNV.enabled)
                     {
@@ -229,21 +231,7 @@ public class FreeCamera : MonoBehaviour
                     continue;
                 }
 
-                if(m_vert != 0 || m_horz != 0)
-                {
-                    var fwd = moveSpeed * m_vert;
-                    var rght = moveSpeed * m_horz;
-                    var upV = moveSpeed * ((Input.GetKey(KeyCode.E) ? 1f : 0f) - (Input.GetKey(KeyCode.Q) ? 1f : 0f));
-                    transform.position += transform.forward * fwd + transform.right * rght + Vector3.up * upV;
-
-                    camTH.transform.position = transform.position;
-                    camNV.transform.position = transform.position;
-                    camEM.transform.position = transform.position;
-
-                    continue;
-                }
-
-                if (_touchID < 0 && touch.phase == TouchPhase.Began)
+                if (/*_touchID < 0 &&*/ touch.phase == TouchPhase.Began) // ??
                 {
                     if (touch.position.x > Screen.width / 2)
                     {
@@ -253,6 +241,20 @@ public class FreeCamera : MonoBehaviour
                         _touchID = touch.fingerId;
                     }
                 }
+
+                if (m_vert != 0 || m_horz != 0)
+                {
+                    var speeda = Time.deltaTime; // * moveSpeed; // !!
+                    var fwd = speeda * m_vert;
+                    var rght = speeda * m_horz;
+                    var upV = 0; // speeda * ((Input.GetKey(KeyCode.E) ? 1f : 0f) - (Input.GetKey(KeyCode.Q) ? 1f : 0f));
+                    transform.position += transform.forward * fwd + transform.right * rght + Vector3.up * upV;
+
+                    camTH.transform.position = transform.position;
+                    camNV.transform.position = transform.position;
+                    camEM.transform.position = transform.position;
+                }
+
             }
             else if (_touchID >= 0)
             {
@@ -316,7 +318,7 @@ public class FreeCamera : MonoBehaviour
 
         if (/*!m_inputCaptured && */Input.GetMouseButtonDown(0))
         {
-            if(camTH.pixelRect.Contains(Input.mousePosition))
+            if (camTH.pixelRect.Contains(Input.mousePosition))
             {
                 if (camTH.enabled)
                 {
@@ -413,38 +415,38 @@ public class FreeCamera : MonoBehaviour
             }
         }
 
-		//if(!m_inputCaptured) {
-		//	if(!holdRightMouseCapture && Input.GetMouseButtonDown(0)) 
-		//		CaptureInput();
-		//	else if(holdRightMouseCapture && Input.GetMouseButtonDown(1))
-		//		CaptureInput();
-		//}
+        //if(!m_inputCaptured) {
+        //	if(!holdRightMouseCapture && Input.GetMouseButtonDown(0)) 
+        //		CaptureInput();
+        //	else if(holdRightMouseCapture && Input.GetMouseButtonDown(1))
+        //		CaptureInput();
+        //}
 
-		//if(!m_inputCaptured)
-		//	return;
+        //if(!m_inputCaptured)
+        //	return;
 
-		//if(m_inputCaptured) {
-		//	if(!holdRightMouseCapture && Input.GetKeyDown(KeyCode.Escape))
-		//		ReleaseInput();
-		//	else if(holdRightMouseCapture && Input.GetMouseButtonUp(1))
-		//		ReleaseInput();
-		//}
-
-
+        //if(m_inputCaptured) {
+        //	if(!holdRightMouseCapture && Input.GetKeyDown(KeyCode.Escape))
+        //		ReleaseInput();
+        //	else if(holdRightMouseCapture && Input.GetMouseButtonUp(1))
+        //		ReleaseInput();
+        //}
 
 
-		var rotStrafe = Input.GetAxis("Mouse X");
-		var rotFwd = Input.GetAxis("Mouse Y");
 
-		m_yaw = (m_yaw + lookSpeed * rotStrafe) % 360f;
-		m_pitch = (m_pitch - lookSpeed * rotFwd) % 360f;
-		transform.rotation = Quaternion.AngleAxis(m_yaw, Vector3.up) * Quaternion.AngleAxis(m_pitch, Vector3.right);
 
-		var speed = Time.deltaTime * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed);
-		var forward = speed * (m_vert + Input.GetAxis("Vertical"));
-		var right = speed * (m_horz + Input.GetAxis("Horizontal"));
-		var up = speed * ((Input.GetKey(KeyCode.E) ? 1f : 0f) - (Input.GetKey(KeyCode.Q) ? 1f : 0f));
-		transform.position += transform.forward * forward + transform.right * right + Vector3.up * up;
+        var rotStrafe = Input.GetAxis("Mouse X");
+        var rotFwd = Input.GetAxis("Mouse Y");
+
+        m_yaw = (m_yaw + lookSpeed * rotStrafe) % 360f;
+        m_pitch = (m_pitch - lookSpeed * rotFwd) % 360f;
+        transform.rotation = Quaternion.AngleAxis(m_yaw, Vector3.up) * Quaternion.AngleAxis(m_pitch, Vector3.right);
+
+        var speed = Time.deltaTime * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed);
+        var forward = speed * (m_vert + Input.GetAxis("Vertical"));
+        var right = speed * (m_horz + Input.GetAxis("Horizontal"));
+        var up = speed * ((Input.GetKey(KeyCode.E) ? 1f : 0f) - (Input.GetKey(KeyCode.Q) ? 1f : 0f));
+        transform.position += transform.forward * forward + transform.right * right + Vector3.up * up;
 
 
         camTH.transform.rotation = transform.rotation;
