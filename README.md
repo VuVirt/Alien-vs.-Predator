@@ -1,4 +1,4 @@
-# CVedia
+# VuVirt
 Unity 
 Alien vs. Predator  
 Predator vision modes  
